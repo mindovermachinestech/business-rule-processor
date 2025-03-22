@@ -12,7 +12,7 @@ public class ExceptionService {
 
     private final Random random = new Random();
 
-    @Scheduled(fixedRate = 10000) // Run every 10 seconds
+    @Scheduled(fixedRate = 100000) // Run every 10 seconds
     public void generateRandomExceptions() {
         int exceptionType = random.nextInt(5);
 
