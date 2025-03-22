@@ -1,0 +1,4 @@
+com\mind\over\machines\business\rule\processor\controller\LogController.class
+com\mind\over\machines\business\rule\processor\BusinessRuleProcessorApplication.class
+com\mind\over\machines\business\rule\processor\service\TelemetryService.class
+com\mind\over\machines\business\rule\processor\service\ExceptionService.class
