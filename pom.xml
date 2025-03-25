@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.mind.over.machines</groupId>
 	<artifactId>business-rule-processor</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>business-rule-processor</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
@@ -85,7 +85,25 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-image</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
+					<!--<image>
+						<name>quay.io/mindovermachinestech/rule-engine:${project.version}</name>
+					</image>
+					<publish>true</publish>
+					<docker>
+						<publishRegistry>
+							<username>mindovermachinestech</username>
+							<password>TD3mGtEMXJKtu1AnVRj7bpgt49ehnhtFMIoOphZfnbs1QEOsjtGwOWMh6ccoXteJ</password>
+							<url>https://quay.io</url>
+						</publishRegistry>
+					</docker>-->
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
