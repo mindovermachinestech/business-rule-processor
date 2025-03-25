@@ -86,31 +86,60 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<executions>
+					<!-- Execution for the 'latest' tag -->
 					<execution>
+						<id>build-image-latest</id>
 						<goals>
 							<goal>build-image</goal>
 						</goals>
+						<configuration>
+							<image>
+								<name>quay.io/mindovermachinestech/business-rule-processor:latest</name>
+							</image>
+							<publish>true</publish>
+							<docker>
+								<publishRegistry>
+									<username>mindovermachinestech</username>
+									<password>TD3mGtEMXJKtu1AnVRj7bpgt49ehnhtFMIoOphZfnbs1QEOsjtGwOWMh6ccoXteJ</password>
+									<url>https://quay.io</url>
+								</publishRegistry>
+							</docker>
+							<excludes>
+								<exclude>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok</artifactId>
+								</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+
+					<!-- Execution for the versioned tag -->
+					<execution>
+						<id>build-image-versioned</id>
+						<goals>
+							<goal>build-image</goal>
+						</goals>
+						<configuration>
+							<image>
+								<name>quay.io/mindovermachinestech/business-rule-processor:${project.version}</name>
+							</image>
+							<publish>true</publish>
+							<docker>
+								<publishRegistry>
+									<username>mindovermachinestech</username>
+									<password>TD3mGtEMXJKtu1AnVRj7bpgt49ehnhtFMIoOphZfnbs1QEOsjtGwOWMh6ccoXteJ</password>
+									<url>https://quay.io</url>
+								</publishRegistry>
+							</docker>
+							<excludes>
+								<exclude>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok</artifactId>
+								</exclude>
+							</excludes>
+						</configuration>
 					</execution>
 				</executions>
-				<configuration>
-					<image>
-						<name>quay.io/mindovermachinestech/business-rule-processor:latest</name>
-					</image>
-					<publish>true</publish>
-					<docker>
-						<publishRegistry>
-							<username>mindovermachinestech</username>
-							<password>TD3mGtEMXJKtu1AnVRj7bpgt49ehnhtFMIoOphZfnbs1QEOsjtGwOWMh6ccoXteJ</password>
-							<url>https://quay.io</url>
-						</publishRegistry>
-					</docker>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
