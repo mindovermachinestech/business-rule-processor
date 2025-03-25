@@ -93,8 +93,8 @@
 					</execution>
 				</executions>
 				<configuration>
-					<!--<image>
-						<name>quay.io/mindovermachinestech/rule-engine:${project.version}</name>
+					<image>
+						<name>quay.io/mindovermachinestech/business-rule-processor:latest</name>
 					</image>
 					<publish>true</publish>
 					<docker>
@@ -103,7 +103,7 @@
 							<password>TD3mGtEMXJKtu1AnVRj7bpgt49ehnhtFMIoOphZfnbs1QEOsjtGwOWMh6ccoXteJ</password>
 							<url>https://quay.io</url>
 						</publishRegistry>
-					</docker>-->
+					</docker>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
