@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.mind.over.machines</groupId>
 	<artifactId>business-rule-processor</artifactId>
-	<version>0.0.4-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>business-rule-processor</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
