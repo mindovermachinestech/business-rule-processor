@@ -10,11 +10,10 @@ import java.util.Random;
 @Component
 public class FraudCheckRule implements BusinessRule {
     private static final Logger logger = LoggerFactory.getLogger(FraudCheckRule.class);
-    private final Random random = new Random();
 
     @Override
     public void execute(String customerId) throws  BusinessRuleException{
-        if (random.nextBoolean()) { // Simulate 50% chance of failure
+        if (getRandomInstance().nextBoolean()) { // Simulate 50% chance of failure
             throw new BusinessRuleException("Potential fraud detected for customer ID: " + customerId);
         }
         logger.info("✅ FraudCheckRule executed successfully for customer ID: {}", customerId);
@@ -23,5 +22,10 @@ public class FraudCheckRule implements BusinessRule {
     @Override
     public String getRuleName() {
         return "FraudCheckRule";
+    }
+
+    @Override
+    public Random getRandomInstance() {
+        return new Random();
     }
 }

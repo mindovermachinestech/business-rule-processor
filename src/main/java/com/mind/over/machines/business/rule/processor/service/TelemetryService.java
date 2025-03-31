@@ -2,14 +2,16 @@ package com.mind.over.machines.business.rule.processor.service;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
-@Slf4j
 @Service
 public class TelemetryService {
+
+    private static final Logger log = LoggerFactory.getLogger(TelemetryService.class);
 
     private final Timer requestTimer;
     private final Random random = new Random();

@@ -1,4 +1,4 @@
-name: Java CI with Maven and Spring Boot Build Image Push to Quay.io
+name: Java CI with Maven, Spring Boot Build, Test, and Push to Quay.io
 
 on:
   push:
@@ -6,17 +6,21 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  IMAGE_NAME: my-spring-boot-app # Replace with your desired image name
+  QUAY_REPOSITORY: quay.io/mindovermachinestech/${{ env.IMAGE_NAME }} # Replace with your Quay.io repository URL
+
 jobs:
-  build:
+  build-and-push:
 
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout code
+      # Step 1: Checkout Code
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Set up JDK 17
+      # Step 2: Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -24,6 +28,34 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Build project using Maven (including Spring Boot build-image)
-      - name: Build with Maven and Spring Boot Build Image
-        run: mvn -B spring-boot:build-image --file pom.xml
+      # Step 3: Run Maven Tests
+      - name: Run Maven Tests
+        run: mvn test --file pom.xml
+
+      # Step 4: Build Project Using Maven
+      - name: Build Project with Maven
+        run: mvn clean package --file pom.xml
+
+      # Step 5: Build Docker Image with Spring Boot Buildpacks
+      - name: Build Docker Image with Spring Boot Buildpacks
+        run: |
+          mvn spring-boot:build-image \
+            -Dspring-boot.build-image.imageName=${{ env.IMAGE_NAME }}
+
+      # Step 6: Log in to Quay.io
+      - name: Log in to Quay.io
+        run: echo "${{ secrets.QUAY_TOKEN }}" | docker login quay.io -u ${{ secrets.QUAY_USERNAME }} --password-stdin
+
+      # Step 7: Tag and Push Docker Image (Commit SHA)
+      - name: Tag and Push Docker Image (Commit SHA)
+        run: |
+          IMAGE_TAG=${{ github.sha }}
+          docker tag ${{ env.IMAGE_NAME }} ${{ env.QUAY_REPOSITORY }}:${IMAGE_TAG}
+          docker push ${{ env.QUAY_REPOSITORY }}:${IMAGE_TAG}}
+
+      # Step 8: Push Latest Docker Image (Optional)
+      - name: Push Latest Docker Image
+        if: github.ref == 'refs/heads/main' # Only push "latest" tag for the main branch
+        run: |
+          docker tag ${{ env.IMAGE_NAME }} ${{ env.QUAY_REPOSITORY }}:latest
+          docker push ${{ env.QUAY_REPOSITORY }}:latest

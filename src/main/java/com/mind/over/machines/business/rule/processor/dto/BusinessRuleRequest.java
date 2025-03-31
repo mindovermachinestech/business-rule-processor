@@ -6,6 +6,11 @@ public class BusinessRuleRequest {
     private String customerId;
     private List<String> ruleNames;
 
+    public BusinessRuleRequest(String customerId, List<String> ruleNames) {
+        this.customerId = customerId;
+        this.ruleNames = ruleNames;
+    }
+
     public String getCustomerId() {
         return customerId;
     }
